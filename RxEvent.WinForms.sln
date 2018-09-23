@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RxEvent.WinForms.Generator", "RxEvent.WinForms.Generator\RxEvent.WinForms.Generator.csproj", "{0EEDB949-70F0-425E-9553-69848122274A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RxEvent.WinForms", "RxEvent.WinForms\RxEvent.WinForms.csproj", "{8BDB122F-CEA9-4414-9428-EBCEB6239BFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EEDB949-70F0-425E-9553-69848122274A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EEDB949-70F0-425E-9553-69848122274A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EEDB949-70F0-425E-9553-69848122274A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EEDB949-70F0-425E-9553-69848122274A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BDB122F-CEA9-4414-9428-EBCEB6239BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BDB122F-CEA9-4414-9428-EBCEB6239BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BDB122F-CEA9-4414-9428-EBCEB6239BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BDB122F-CEA9-4414-9428-EBCEB6239BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1822BDB2-86F7-41D6-A607-562ED301423B}
+	EndGlobalSection
+EndGlobal
