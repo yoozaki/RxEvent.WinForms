@@ -1,0 +1,215 @@
+﻿<#@ assembly Name="System.Core.dll" #>
+<#@ assembly Name="System.Windows.Forms.dll" #>
+<#@ assembly Name="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\Client\System.Xaml.dll" #>
+<#@ assembly Name="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\Client\PresentationCore.dll" #>
+<#@ assembly Name="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\Client\PresentationFramework.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Reflection" #>
+
+<#
+    // 設定：ここに生成したいクラス(のTypeをFullNameで)を足してください(以下の4つは例)
+    // クラスによってはassemblyの増減が必要です、WPF/Silverlightなどはフルパス直書きしてください
+    var types = new[] {
+			typeof(System.Windows.Forms.AxHost), 
+			typeof(System.Windows.Forms.BindingNavigator), 
+			typeof(System.Windows.Forms.BindingSource), 
+			typeof(System.Windows.Forms.Button), 
+			typeof(System.Windows.Forms.ButtonBase), 
+			typeof(System.Windows.Forms.CheckBox), 
+			typeof(System.Windows.Forms.CheckedListBox), 
+			typeof(System.Windows.Forms.ColorDialog), 
+			typeof(System.Windows.Forms.ColumnHeader), 
+			typeof(System.Windows.Forms.ComboBox), 
+			typeof(System.Windows.Forms.CommonDialog), 
+			typeof(System.Windows.Forms.ContainerControl), 
+			typeof(System.Windows.Forms.ContextMenu), 
+			typeof(System.Windows.Forms.ContextMenuStrip), 
+			typeof(System.Windows.Forms.Control), 
+			typeof(System.Windows.Forms.DataGrid), 
+			typeof(System.Windows.Forms.DataGridBoolColumn), 
+			typeof(System.Windows.Forms.DataGridColumnStyle), 
+			typeof(System.Windows.Forms.DataGridTableStyle), 
+			typeof(System.Windows.Forms.DataGridTextBox), 
+			typeof(System.Windows.Forms.DataGridTextBoxColumn), 
+			typeof(System.Windows.Forms.DataGridView), 
+			typeof(System.Windows.Forms.DataGridViewComboBoxEditingControl), 
+			typeof(System.Windows.Forms.DataGridViewTextBoxEditingControl), 
+			typeof(System.Windows.Forms.DateTimePicker), 
+			typeof(System.Windows.Forms.Design.ComponentEditorForm), 
+			typeof(System.Windows.Forms.Design.ComponentEditorPage), 
+			typeof(System.Windows.Forms.DomainUpDown), 
+			typeof(System.Windows.Forms.ErrorProvider), 
+			typeof(System.Windows.Forms.FileDialog), 
+			typeof(System.Windows.Forms.FlowLayoutPanel), 
+			typeof(System.Windows.Forms.FolderBrowserDialog), 
+			typeof(System.Windows.Forms.FontDialog), 
+			typeof(System.Windows.Forms.Form), 
+			typeof(System.Windows.Forms.GroupBox), 
+			typeof(System.Windows.Forms.HelpProvider), 
+			typeof(System.Windows.Forms.HScrollBar), 
+			typeof(System.Windows.Forms.ImageList), 
+			typeof(System.Windows.Forms.Label), 
+			typeof(System.Windows.Forms.LinkLabel), 
+			typeof(System.Windows.Forms.ListBox), 
+			typeof(System.Windows.Forms.ListControl), 
+			typeof(System.Windows.Forms.ListView), 
+			typeof(System.Windows.Forms.MainMenu), 
+			typeof(System.Windows.Forms.MaskedTextBox), 
+			typeof(System.Windows.Forms.MdiClient), 
+			typeof(System.Windows.Forms.Menu), 
+			typeof(System.Windows.Forms.MenuItem), 
+			typeof(System.Windows.Forms.MenuStrip), 
+			typeof(System.Windows.Forms.MonthCalendar), 
+			typeof(System.Windows.Forms.NotifyIcon), 
+			typeof(System.Windows.Forms.NumericUpDown), 
+			typeof(System.Windows.Forms.OpenFileDialog), 
+			typeof(System.Windows.Forms.PageSetupDialog), 
+			typeof(System.Windows.Forms.Panel), 
+			typeof(System.Windows.Forms.PictureBox), 
+			typeof(System.Windows.Forms.PrintDialog), 
+			typeof(System.Windows.Forms.PrintPreviewControl), 
+			typeof(System.Windows.Forms.PrintPreviewDialog), 
+			typeof(System.Windows.Forms.ProgressBar), 
+			typeof(System.Windows.Forms.PropertyGrid), 
+			typeof(System.Windows.Forms.RadioButton), 
+			typeof(System.Windows.Forms.RichTextBox), 
+			typeof(System.Windows.Forms.SaveFileDialog), 
+			typeof(System.Windows.Forms.ScrollableControl), 
+			typeof(System.Windows.Forms.ScrollBar), 
+			typeof(System.Windows.Forms.SplitContainer), 
+			typeof(System.Windows.Forms.Splitter), 
+			typeof(System.Windows.Forms.SplitterPanel), 
+			typeof(System.Windows.Forms.StatusBar), 
+			typeof(System.Windows.Forms.StatusBarPanel), 
+			typeof(System.Windows.Forms.StatusStrip), 
+			typeof(System.Windows.Forms.TabControl), 
+			typeof(System.Windows.Forms.TableLayoutPanel), 
+			typeof(System.Windows.Forms.TabPage), 
+			typeof(System.Windows.Forms.TextBox), 
+			typeof(System.Windows.Forms.TextBoxBase), 
+			typeof(System.Windows.Forms.ThreadExceptionDialog), 
+			typeof(System.Windows.Forms.Timer), 
+			typeof(System.Windows.Forms.ToolBar), 
+			typeof(System.Windows.Forms.ToolBarButton), 
+			typeof(System.Windows.Forms.ToolStrip), 
+			typeof(System.Windows.Forms.ToolStripButton), 
+			typeof(System.Windows.Forms.ToolStripComboBox), 
+			typeof(System.Windows.Forms.ToolStripContainer), 
+			typeof(System.Windows.Forms.ToolStripContentPanel), 
+			typeof(System.Windows.Forms.ToolStripControlHost), 
+			typeof(System.Windows.Forms.ToolStripDropDown), 
+			typeof(System.Windows.Forms.ToolStripDropDownButton), 
+			typeof(System.Windows.Forms.ToolStripDropDownItem), 
+			typeof(System.Windows.Forms.ToolStripDropDownMenu), 
+			typeof(System.Windows.Forms.ToolStripItem), 
+			typeof(System.Windows.Forms.ToolStripLabel), 
+			typeof(System.Windows.Forms.ToolStripMenuItem), 
+			typeof(System.Windows.Forms.ToolStripOverflow), 
+			typeof(System.Windows.Forms.ToolStripOverflowButton), 
+			typeof(System.Windows.Forms.ToolStripPanel), 
+			typeof(System.Windows.Forms.ToolStripPanelRow), 
+			typeof(System.Windows.Forms.ToolStripProgressBar), 
+			typeof(System.Windows.Forms.ToolStripSeparator), 
+			typeof(System.Windows.Forms.ToolStripSplitButton), 
+			typeof(System.Windows.Forms.ToolStripStatusLabel), 
+			typeof(System.Windows.Forms.ToolStripTextBox), 
+			typeof(System.Windows.Forms.ToolTip), 
+			typeof(System.Windows.Forms.TrackBar), 
+			typeof(System.Windows.Forms.TreeView), 
+			typeof(System.Windows.Forms.UpDownBase), 
+			typeof(System.Windows.Forms.UserControl), 
+			typeof(System.Windows.Forms.VScrollBar), 
+			typeof(System.Windows.Forms.WebBrowser), 
+			typeof(System.Windows.Forms.WebBrowserBase), 
+    };
+#>
+using System.Reactive.Linq;
+ 
+<# foreach(var x in GenerateTemplates(types)) {#>
+ 
+namespace <#= x.Namespace #>
+{
+    <# foreach(var ct in x.ClassTemplates) {#>
+ 
+    public static class <#= ct.Classname #>EventExtensions
+    {
+        <# foreach(var ev in ct.EventTemplates) {#>
+ 
+        public static IObservable<<#= ev.Args #>> <#= ev.Name #>AsObservable<#= ct.GenericArgs #>(this <#= ct.Classname #><#= ct.GenericArgs #> source)
+        {
+            return Observable.FromEvent<<#= ev.Handler + (ev.IsGeneric ? "<" + ev.Args + ">" : "") #>, <#= ev.Args #>>(
+                h => (sender, args) => h(args),
+                h => source.<#= ev.Name #> += h,
+                h => source.<#= ev.Name #> -= h);
+        }
+        <# } #>
+    }
+    <# }#>
+}
+<# }#>
+<#+
+    IEnumerable<T> TraverseNode<T>(T root, Func<T, T> selector)
+    {
+        var current = root;
+        while (current != null)
+        {
+            yield return current;
+            current = selector(current);
+        }
+    }
+ 
+    IEnumerable<ObservableTemplate> GenerateTemplates(Type[] types)
+    {
+        return types.SelectMany(t => TraverseNode(t, x => x.BaseType))
+            .Distinct()
+            .GroupBy(t => t.Namespace)
+            .Select(g => new ObservableTemplate
+            {
+                Namespace = g.Key,
+                ClassTemplates = g.Select(t => new ClassTemplate(t))
+                    .Where(t => t.EventTemplates.Any())
+                    .ToArray()
+            })
+            .Where(a => a.ClassTemplates.Any())
+            .OrderBy(a => a.Namespace);
+    }
+ 
+    class ObservableTemplate
+    {
+        public string Namespace;
+        public ClassTemplate[] ClassTemplates;
+    }
+ 
+    class ClassTemplate
+    {
+        public string Classname, GenericArgs;
+        public EventTemplate[] EventTemplates;
+ 
+        public ClassTemplate(Type type)
+        {
+            Classname = Regex.Replace(type.Name, "`.*$", "");
+            GenericArgs = type.IsGenericType
+                ? "<" + string.Join(",", type.GetGenericArguments().Select((_, i) => "T" + (i + 1))) + ">"
+                : "";
+            EventTemplates = type.GetEvents(BindingFlags.Public | BindingFlags.InvokeMethod | BindingFlags.DeclaredOnly | BindingFlags.Instance)
+                .Select(ei => new { EventInfo = ei, Args = ei.EventHandlerType.GetMethod("Invoke").GetParameters().Last().ParameterType })
+                .Where(a => a.Args == typeof(EventArgs) || a.Args.IsSubclassOf(typeof(EventArgs)))
+                .Select(a => new EventTemplate
+                {
+                    Name = a.EventInfo.Name,
+                    Handler = Regex.Replace(a.EventInfo.EventHandlerType.FullName, "`.*$", ""),
+                    Args = a.Args.FullName,
+                    IsGeneric = a.EventInfo.EventHandlerType.IsGenericType
+                })
+                .ToArray();
+        }
+    }
+ 
+    class EventTemplate
+    {
+        public string Name, Args, Handler;
+        public bool IsGeneric;
+    }
+#>
